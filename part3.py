@@ -8,13 +8,36 @@ NUMBERS_TO_LETTERS = {0:'a', 1:'b', 2:'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h', 8:
 					  23: 'x', 24: 'y', 25: 'z'}
 
 def createShiftDictionary(s):
-	pass
+	new_dictionary = {}
+	for i in range(0,26):
+		new_dictionary[NUMBERS_TO_LETTERS[i]] = NUMBERS_TO_LETTERS[((i+s)%26)]
+	#new_dictionary['a'] = NUMBERS_TO_LETTERS[LETTERS_TO_NUMBERS['a']+s]
+	return new_dictionary
 
 def encode(plaintext, s):
-	pass
+	cipher = ""
+	dicti = createShiftDictionary(s)
+	for i in range(0,len(plaintext)):
+		if plaintext[i].isalpha():
+			cipher += dicti[plaintext[i]]
+		else: cipher += plaintext[i]
+	return cipher
 
 def decode(ciphertext, s):
-	pass
+	decipher = ""
+	dicto = createShiftDictionary(-s)
+	for i in range(0,len(ciphertext)):
+		if ciphertext[i].isalpha():
+			decipher += dicto[ciphertext[i]]
+		else: decipher += ciphertext[i]
+	return decipher
 
 def decodeAll(ciphertext):
-	pass
+	list_de = []
+	for i in range(0,26):
+		list_de.append(decode(ciphertext, i))
+	return list_de
+
+x = encode("hello, friend.", 4)
+print(x)
+print(decodeAll(x))
